@@ -1,0 +1,364 @@
+<html>
+<head>
+<title>Candidate.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Candidate.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">ace</span><span class="s2">.</span><span class="s1">job</span><span class="s2">.</span><span class="s1">recruitment</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalTime</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">CascadeType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Column</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Entity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">GeneratedValue</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">GenerationType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Id</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">JoinColumn</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">ManyToOne</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">OneToMany</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Table</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">fasterxml</span><span class="s2">.</span><span class="s1">jackson</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.</span><span class="s1">JsonBackReference</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">fasterxml</span><span class="s2">.</span><span class="s1">jackson</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.</span><span class="s1">JsonManagedReference</span><span class="s2">;</span>
+
+<span class="s1">@Entity</span>
+<span class="s1">@Table</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;candidate&quot;</span><span class="s2">)</span>
+<span class="s0">public class </span><span class="s1">Candidate </span><span class="s2">{</span>
+
+	<span class="s1">@Id</span>
+	<span class="s1">@GeneratedValue</span><span class="s2">(</span><span class="s1">strategy </span><span class="s2">= </span><span class="s1">GenerationType</span><span class="s2">.</span><span class="s1">IDENTITY</span><span class="s2">)</span>
+	<span class="s0">private long </span><span class="s1">id</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String name</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String dob</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">columnDefinition </span><span class="s2">= </span><span class="s3">&quot;BOOLEAN&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private boolean </span><span class="s1">gender</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String phone</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String education</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String email</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;tech_skill&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String techSkill</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;language_skill&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String languageSkill</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;main_tech&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String mainTech</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String exp</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String level</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;expected_salary&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String expectedSalary</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;submit_date&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalDate submitDate</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;submit_time&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalTime submitTime</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">columnDefinition </span><span class="s2">= </span><span class="s3">&quot;longblob&quot;</span><span class="s2">)</span>
+	<span class="s0">private byte</span><span class="s2">[] </span><span class="s1">file</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String filetype</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;is_employ&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private boolean </span><span class="s1">isEmploy</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;employed_user_id&quot;</span><span class="s2">)</span>
+	<span class="s0">private int </span><span class="s1">employedUserId</span><span class="s2">;</span>
+
+	<span class="s0">public int </span><span class="s1">getEmployedUserId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">employedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setEmployedUserId</span><span class="s2">(</span><span class="s0">int </span><span class="s1">employedUserId</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">employedUserId </span><span class="s2">= </span><span class="s1">employedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;is_mail_sent&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private boolean </span><span class="s1">isMailSent</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;is_recall&quot;</span><span class="s2">)</span>
+	<span class="s0">private boolean </span><span class="s1">isRecall</span><span class="s2">;</span>
+
+	<span class="s0">public boolean </span><span class="s1">isRecall</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">isRecall</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">isRecall</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">isRecall</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">isRecall </span><span class="s2">= </span><span class="s1">isRecall</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isMailSent</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">isMailSent</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setMailSent</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">isMailSent</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">isMailSent </span><span class="s2">= </span><span class="s1">isMailSent</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isEmploy</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">isEmploy</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setEmploy</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">isEmploy</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">isEmploy </span><span class="s2">= </span><span class="s1">isEmploy</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">MailHistory</span><span class="s2">&gt; </span><span class="s1">getMailHistories</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">mailHistories</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setMailHistories</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">MailHistory</span><span class="s2">&gt; </span><span class="s1">mailHistories</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">mailHistories </span><span class="s2">= </span><span class="s1">mailHistories</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s1">@ManyToOne</span>
+	<span class="s1">@JoinColumn</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;vacancy_id&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s1">@JsonManagedReference</span>
+	<span class="s0">private </span><span class="s1">Vacancy vacancy</span><span class="s2">;</span>
+
+	<span class="s1">@OneToMany</span><span class="s2">(</span><span class="s1">mappedBy </span><span class="s2">= </span><span class="s3">&quot;candidate&quot;</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+	<span class="s1">@JsonManagedReference</span>
+	<span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">CandidateStatus</span><span class="s2">&gt; </span><span class="s1">candidateStatusList</span><span class="s2">;</span>
+
+	<span class="s1">@OneToMany</span><span class="s2">(</span><span class="s1">mappedBy </span><span class="s2">= </span><span class="s3">&quot;candidate&quot;</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">, </span><span class="s1">orphanRemoval </span><span class="s2">= </span><span class="s0">true</span><span class="s2">)</span>
+	<span class="s1">@JsonManagedReference</span>
+	<span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">CandidateInterview</span><span class="s2">&gt; </span><span class="s1">candidateInterviews</span><span class="s2">;</span>
+
+	<span class="s1">@OneToMany</span><span class="s2">(</span><span class="s1">mappedBy </span><span class="s2">= </span><span class="s3">&quot;candidate&quot;</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">, </span><span class="s1">orphanRemoval </span><span class="s2">= </span><span class="s0">true</span><span class="s2">)</span>
+	<span class="s1">@JsonBackReference</span>
+	<span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">MailHistory</span><span class="s2">&gt; </span><span class="s1">mailHistories </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+
+	<span class="s0">public boolean </span><span class="s1">isIsEmploy</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">isEmploy</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isIsMailSent</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">isMailSent</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">CandidateInterview</span><span class="s2">&gt; </span><span class="s1">getCandidateInterviews</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">candidateInterviews</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">CandidateStatus</span><span class="s2">&gt; </span><span class="s1">getCandidateStatusList</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">candidateStatusList</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCandidateStatusList</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">CandidateStatus</span><span class="s2">&gt; </span><span class="s1">candidateStatusList</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">candidateStatusList </span><span class="s2">= </span><span class="s1">candidateStatusList</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCandidateInterviews</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">CandidateInterview</span><span class="s2">&gt; </span><span class="s1">candidateInterviews</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">candidateInterviews </span><span class="s2">= </span><span class="s1">candidateInterviews</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public long </span><span class="s1">getId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setId</span><span class="s2">(</span><span class="s0">long </span><span class="s1">id</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getName</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">name</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setName</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getDob</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">dob</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setDob</span><span class="s2">(</span><span class="s1">String dob</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">dob </span><span class="s2">= </span><span class="s1">dob</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isGender</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">gender</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setGender</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">gender</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">gender </span><span class="s2">= </span><span class="s1">gender</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getPhone</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">phone</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setPhone</span><span class="s2">(</span><span class="s1">String phone</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">phone </span><span class="s2">= </span><span class="s1">phone</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getEducation</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">education</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setEducation</span><span class="s2">(</span><span class="s1">String education</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">education </span><span class="s2">= </span><span class="s1">education</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getEmail</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">email</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setEmail</span><span class="s2">(</span><span class="s1">String email</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">email </span><span class="s2">= </span><span class="s1">email</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getTechSkill</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">techSkill</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setTechSkill</span><span class="s2">(</span><span class="s1">String techSkill</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">techSkill </span><span class="s2">= </span><span class="s1">techSkill</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getLanguageSkill</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">languageSkill</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setLanguageSkill</span><span class="s2">(</span><span class="s1">String languageSkill</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">languageSkill </span><span class="s2">= </span><span class="s1">languageSkill</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getMainTech</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">mainTech</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setMainTech</span><span class="s2">(</span><span class="s1">String mainTech</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">mainTech </span><span class="s2">= </span><span class="s1">mainTech</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getExp</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">exp</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setExp</span><span class="s2">(</span><span class="s1">String exp</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">exp </span><span class="s2">= </span><span class="s1">exp</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getLevel</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">level</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setLevel</span><span class="s2">(</span><span class="s1">String level</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">level </span><span class="s2">= </span><span class="s1">level</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getExpectedSalary</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">expectedSalary</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setExpectedSalary</span><span class="s2">(</span><span class="s1">String expectedSalary</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">expectedSalary </span><span class="s2">= </span><span class="s1">expectedSalary</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalDate getSubmitDate</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">submitDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setSubmitDate</span><span class="s2">(</span><span class="s1">LocalDate submitDate</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">submitDate </span><span class="s2">= </span><span class="s1">submitDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalTime getSubmitTime</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">submitTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setSubmitTime</span><span class="s2">(</span><span class="s1">LocalTime submitTime</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">submitTime </span><span class="s2">= </span><span class="s1">submitTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public byte</span><span class="s2">[] </span><span class="s1">getFile</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">file</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setFile</span><span class="s2">(</span><span class="s0">byte</span><span class="s2">[] </span><span class="s1">file</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">file </span><span class="s2">= </span><span class="s1">file</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getFiletype</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">filetype</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setFiletype</span><span class="s2">(</span><span class="s1">String filetype</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">filetype </span><span class="s2">= </span><span class="s1">filetype</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Vacancy getVacancy</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">vacancy</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setVacancy</span><span class="s2">(</span><span class="s1">Vacancy vacancy</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">vacancy </span><span class="s2">= </span><span class="s1">vacancy</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Candidate</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">, </span><span class="s1">String dob</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">gender</span><span class="s2">, </span><span class="s1">String phone</span><span class="s2">, </span><span class="s1">String education</span><span class="s2">, </span><span class="s1">String email</span><span class="s2">,</span>
+			<span class="s1">String techSkill</span><span class="s2">, </span><span class="s1">String languageSkill</span><span class="s2">, </span><span class="s1">String mainTech</span><span class="s2">, </span><span class="s1">String exp</span><span class="s2">, </span><span class="s1">String level</span><span class="s2">, </span><span class="s1">String expectedSalary</span><span class="s2">,</span>
+			<span class="s1">LocalDate submitDate</span><span class="s2">, </span><span class="s1">LocalTime submitTime</span><span class="s2">, </span><span class="s0">byte</span><span class="s2">[] </span><span class="s1">file</span><span class="s2">, </span><span class="s1">String filetype</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">isEmploy</span><span class="s2">,</span>
+			<span class="s0">int </span><span class="s1">employedUserId</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">isMailSent</span><span class="s2">) {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">dob </span><span class="s2">= </span><span class="s1">dob</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">gender </span><span class="s2">= </span><span class="s1">gender</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">phone </span><span class="s2">= </span><span class="s1">phone</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">education </span><span class="s2">= </span><span class="s1">education</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">email </span><span class="s2">= </span><span class="s1">email</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">techSkill </span><span class="s2">= </span><span class="s1">techSkill</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">languageSkill </span><span class="s2">= </span><span class="s1">languageSkill</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">mainTech </span><span class="s2">= </span><span class="s1">mainTech</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">exp </span><span class="s2">= </span><span class="s1">exp</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">level </span><span class="s2">= </span><span class="s1">level</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">expectedSalary </span><span class="s2">= </span><span class="s1">expectedSalary</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">submitDate </span><span class="s2">= </span><span class="s1">submitDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">submitTime </span><span class="s2">= </span><span class="s1">submitTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">file </span><span class="s2">= </span><span class="s1">file</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">filetype </span><span class="s2">= </span><span class="s1">filetype</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">isEmploy </span><span class="s2">= </span><span class="s1">isEmploy</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">employedUserId </span><span class="s2">= </span><span class="s1">employedUserId</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">isMailSent </span><span class="s2">= </span><span class="s1">isMailSent</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Candidate</span><span class="s2">() {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+	<span class="s2">}</span>
+
+<span class="s2">}</span></pre>
+</body>
+</html>

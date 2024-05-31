@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>Position.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Position.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">ace</span><span class="s2">.</span><span class="s1">job</span><span class="s2">.</span><span class="s1">recruitment</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">CascadeType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Column</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Entity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">GeneratedValue</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">GenerationType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Id</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">OneToMany</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Table</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Transient</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">fasterxml</span><span class="s2">.</span><span class="s1">jackson</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.</span><span class="s1">JsonBackReference</span><span class="s2">;</span>
+
+<span class="s1">@Entity</span>
+<span class="s1">@Table</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;position&quot;</span><span class="s2">)</span>
+<span class="s0">public class </span><span class="s1">Position </span><span class="s2">{</span>
+	<span class="s1">@Id</span>
+	<span class="s1">@GeneratedValue</span><span class="s2">(</span><span class="s1">strategy </span><span class="s2">= </span><span class="s1">GenerationType</span><span class="s2">.</span><span class="s1">IDENTITY</span><span class="s2">)</span>
+	<span class="s0">private int </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">length </span><span class="s2">= </span><span class="s4">100</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String name</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;created_datetime&quot;</span><span class="s2">, </span><span class="s1">length </span><span class="s2">= </span><span class="s4">20</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String createdDateTime</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;updated_datetime&quot;</span><span class="s2">, </span><span class="s1">length </span><span class="s2">= </span><span class="s4">20</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String updatedDateTime</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;created_user_id&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private int </span><span class="s1">createdUserId</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;updated_user_id&quot;</span><span class="s2">)</span>
+	<span class="s0">private int </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+
+	<span class="s1">@Transient</span>
+	<span class="s0">private </span><span class="s1">String createdUsername</span><span class="s2">;</span>
+
+	<span class="s1">@Transient</span>
+	<span class="s0">private </span><span class="s1">String updatedUsername</span><span class="s2">;</span>
+
+	<span class="s1">@OneToMany</span><span class="s2">(</span><span class="s1">mappedBy </span><span class="s2">= </span><span class="s3">&quot;position&quot;</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+	<span class="s1">@JsonBackReference</span>
+	<span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Vacancy</span><span class="s2">&gt; </span><span class="s1">vacancies</span><span class="s2">;</span>
+
+	<span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Vacancy</span><span class="s2">&gt; </span><span class="s1">getVacancies</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">vacancies</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setVacancies</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Vacancy</span><span class="s2">&gt; </span><span class="s1">vacancies</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">vacancies </span><span class="s2">= </span><span class="s1">vacancies</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getCreatedUsername</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">createdUsername</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCreatedUsername</span><span class="s2">(</span><span class="s1">String createdUsername</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUsername </span><span class="s2">= </span><span class="s1">createdUsername</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getUpdatedUsername</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">updatedUsername</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setUpdatedUsername</span><span class="s2">(</span><span class="s1">String updatedUsername</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedUsername </span><span class="s2">= </span><span class="s1">updatedUsername</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Position</span><span class="s2">() {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Position</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">, </span><span class="s1">String createdDateTime</span><span class="s2">, </span><span class="s0">int </span><span class="s1">createdUserId</span><span class="s2">) {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdDateTime </span><span class="s2">= </span><span class="s1">createdDateTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUserId </span><span class="s2">= </span><span class="s1">createdUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Position</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">, </span><span class="s1">String createdDateTime</span><span class="s2">, </span><span class="s1">String updatedDateTime</span><span class="s2">, </span><span class="s0">int </span><span class="s1">createdUserId</span><span class="s2">, </span><span class="s0">int </span><span class="s1">updatedUserId</span><span class="s2">) {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdDateTime </span><span class="s2">= </span><span class="s1">createdDateTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedDateTime </span><span class="s2">= </span><span class="s1">updatedDateTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUserId </span><span class="s2">= </span><span class="s1">createdUserId</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedUserId </span><span class="s2">= </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Position</span><span class="s2">(</span><span class="s0">int </span><span class="s1">id</span><span class="s2">, </span><span class="s1">String name</span><span class="s2">, </span><span class="s1">String createdDateTime</span><span class="s2">, </span><span class="s1">String updatedDateTime</span><span class="s2">, </span><span class="s0">int </span><span class="s1">createdUserId</span><span class="s2">,</span>
+			<span class="s0">int </span><span class="s1">updatedUserId</span><span class="s2">) {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdDateTime </span><span class="s2">= </span><span class="s1">createdDateTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedDateTime </span><span class="s2">= </span><span class="s1">updatedDateTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUserId </span><span class="s2">= </span><span class="s1">createdUserId</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedUserId </span><span class="s2">= </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getCreatedDateTime</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">createdDateTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCreatedDateTime</span><span class="s2">(</span><span class="s1">String createdDateTime</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdDateTime </span><span class="s2">= </span><span class="s1">createdDateTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getUpdatedDateTime</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">updatedDateTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setUpdatedDateTime</span><span class="s2">(</span><span class="s1">String updatedDateTime</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedDateTime </span><span class="s2">= </span><span class="s1">updatedDateTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public int </span><span class="s1">getId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setId</span><span class="s2">(</span><span class="s0">int </span><span class="s1">id</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getName</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">name</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setName</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public int </span><span class="s1">getCreatedUserId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">createdUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCreatedUserId</span><span class="s2">(</span><span class="s0">int </span><span class="s1">createdUserId</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUserId </span><span class="s2">= </span><span class="s1">createdUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public int </span><span class="s1">getUpdatedUserId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setUpdatedUserId</span><span class="s2">(</span><span class="s0">int </span><span class="s1">updatedUserId</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedUserId </span><span class="s2">= </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+<span class="s2">}</span></pre>
+</body>
+</html>

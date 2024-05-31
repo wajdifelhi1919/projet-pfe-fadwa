@@ -1,0 +1,434 @@
+<html>
+<head>
+<title>Vacancy.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Vacancy.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">ace</span><span class="s2">.</span><span class="s1">job</span><span class="s2">.</span><span class="s1">recruitment</span><span class="s2">.</span><span class="s1">entity</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalTime</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">CascadeType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Column</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Entity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">FetchType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">GeneratedValue</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">GenerationType</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Id</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">JoinColumn</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">ManyToOne</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">OneToMany</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Table</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">fasterxml</span><span class="s2">.</span><span class="s1">jackson</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.</span><span class="s1">JsonBackReference</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">fasterxml</span><span class="s2">.</span><span class="s1">jackson</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.</span><span class="s1">JsonManagedReference</span><span class="s2">;</span>
+
+<span class="s1">@Entity</span>
+<span class="s1">@Table</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;vacancy&quot;</span><span class="s2">)</span>
+<span class="s0">public class </span><span class="s1">Vacancy </span><span class="s2">{</span>
+	<span class="s1">@Id</span>
+	<span class="s1">@GeneratedValue</span><span class="s2">(</span><span class="s1">strategy </span><span class="s2">= </span><span class="s1">GenerationType</span><span class="s2">.</span><span class="s1">IDENTITY</span><span class="s2">)</span>
+	<span class="s0">private long </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">columnDefinition </span><span class="s2">= </span><span class="s3">&quot;LONGTEXT&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String requirement</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">columnDefinition </span><span class="s2">= </span><span class="s3">&quot;LONGTEXT&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String responsibility</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">columnDefinition </span><span class="s2">= </span><span class="s3">&quot;LONGTEXT&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String description</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">columnDefinition </span><span class="s2">= </span><span class="s3">&quot;LONGTEXT&quot;</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String preference</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">length </span><span class="s2">= </span><span class="s4">70</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String startWorkingDay</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">length </span><span class="s2">= </span><span class="s4">70</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String endWorkingDay</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">length </span><span class="s2">= </span><span class="s4">50</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String startWorkingHour</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">length </span><span class="s2">= </span><span class="s4">50</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String endWorkingHour</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">length </span><span class="s2">= </span><span class="s4">50</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String salary</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private int </span><span class="s1">count</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">length </span><span class="s2">= </span><span class="s4">50</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">String type</span><span class="s2">;</span>
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;reopen_status&quot;</span><span class="s2">)</span>
+	<span class="s0">private boolean </span><span class="s1">reopenStatus</span><span class="s2">;</span>
+
+	<span class="s0">private boolean </span><span class="s1">reopened</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;created_date&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalDate createdDate</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;created_time&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalTime createdTime</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;updated_date&quot;</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalDate updatedDate</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;updated_time&quot;</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalTime updatedTime</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;created_user_id&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private int </span><span class="s1">createdUserId</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;updated_user_id&quot;</span><span class="s2">)</span>
+	<span class="s0">private int </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;due_date&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalDate dueDate</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private boolean </span><span class="s1">active</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s0">private boolean </span><span class="s1">urgent</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;reopen_date&quot;</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalDate reopenDate</span><span class="s2">;</span>
+
+	<span class="s1">@Column</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;reopen_time&quot;</span><span class="s2">)</span>
+	<span class="s0">private </span><span class="s1">LocalTime reopenTime</span><span class="s2">;</span>
+
+	<span class="s1">@ManyToOne</span><span class="s2">(</span><span class="s1">fetch </span><span class="s2">= </span><span class="s1">FetchType</span><span class="s2">.</span><span class="s1">EAGER</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+	<span class="s1">@JoinColumn</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;department_id&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s1">@JsonManagedReference</span>
+	<span class="s0">private </span><span class="s1">Department department</span><span class="s2">;</span>
+
+	<span class="s1">@OneToMany</span><span class="s2">(</span><span class="s1">mappedBy </span><span class="s2">= </span><span class="s3">&quot;vacancy&quot;</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+	<span class="s1">@JsonBackReference</span>
+	<span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Candidate</span><span class="s2">&gt; </span><span class="s1">candidates</span><span class="s2">;</span>
+
+	<span class="s1">@OneToMany</span><span class="s2">(</span><span class="s1">mappedBy </span><span class="s2">= </span><span class="s3">&quot;vacancy&quot;</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+	<span class="s1">@JsonBackReference</span>
+	<span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Notification</span><span class="s2">&gt; </span><span class="s1">notification</span><span class="s2">;</span>
+
+	<span class="s1">@ManyToOne</span><span class="s2">(</span><span class="s1">fetch </span><span class="s2">= </span><span class="s1">FetchType</span><span class="s2">.</span><span class="s1">EAGER</span><span class="s2">, </span><span class="s1">cascade </span><span class="s2">= </span><span class="s1">CascadeType</span><span class="s2">.</span><span class="s1">ALL</span><span class="s2">)</span>
+	<span class="s1">@JoinColumn</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;position_id&quot;</span><span class="s2">, </span><span class="s1">nullable </span><span class="s2">= </span><span class="s0">false</span><span class="s2">)</span>
+	<span class="s1">@JsonManagedReference</span>
+	<span class="s0">private </span><span class="s1">Position position</span><span class="s2">;</span>
+
+	<span class="s0">public </span><span class="s1">Vacancy</span><span class="s2">() {</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Vacancy</span><span class="s2">(</span><span class="s1">String requirement</span><span class="s2">, </span><span class="s1">String responsibility</span><span class="s2">, </span><span class="s1">String description</span><span class="s2">, </span><span class="s1">String preference</span><span class="s2">,</span>
+			<span class="s1">String startWorkingDay</span><span class="s2">, </span><span class="s1">String endWorkingDay</span><span class="s2">, </span><span class="s1">String startWorkingHour</span><span class="s2">, </span><span class="s1">String endWorkingHour</span><span class="s2">, </span><span class="s1">String salary</span><span class="s2">,</span>
+			<span class="s0">int </span><span class="s1">count</span><span class="s2">, </span><span class="s1">String type</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">reopenStatus</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">reopened</span><span class="s2">, </span><span class="s1">LocalDate createdDate</span><span class="s2">,</span>
+			<span class="s1">LocalTime createdTime</span><span class="s2">, </span><span class="s1">LocalDate updatedDate</span><span class="s2">, </span><span class="s1">LocalTime updatedTime</span><span class="s2">, </span><span class="s0">int </span><span class="s1">createdUserId</span><span class="s2">, </span><span class="s0">int </span><span class="s1">updatedUserId</span><span class="s2">,</span>
+			<span class="s1">LocalDate dueDate</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">active</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">urgent</span><span class="s2">, </span><span class="s1">LocalDate reopenDate</span><span class="s2">, </span><span class="s1">LocalTime reopenTime</span><span class="s2">,</span>
+			<span class="s1">Department department</span><span class="s2">, </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Candidate</span><span class="s2">&gt; </span><span class="s1">candidates</span><span class="s2">, </span><span class="s1">Position position</span><span class="s2">) {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">requirement </span><span class="s2">= </span><span class="s1">requirement</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">responsibility </span><span class="s2">= </span><span class="s1">responsibility</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">description </span><span class="s2">= </span><span class="s1">description</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">preference </span><span class="s2">= </span><span class="s1">preference</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">startWorkingDay </span><span class="s2">= </span><span class="s1">startWorkingDay</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">endWorkingDay </span><span class="s2">= </span><span class="s1">endWorkingDay</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">startWorkingHour </span><span class="s2">= </span><span class="s1">startWorkingHour</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">endWorkingHour </span><span class="s2">= </span><span class="s1">endWorkingHour</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">salary </span><span class="s2">= </span><span class="s1">salary</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">count </span><span class="s2">= </span><span class="s1">count</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">type </span><span class="s2">= </span><span class="s1">type</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenStatus </span><span class="s2">= </span><span class="s1">reopenStatus</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdDate </span><span class="s2">= </span><span class="s1">createdDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdTime </span><span class="s2">= </span><span class="s1">createdTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedDate </span><span class="s2">= </span><span class="s1">updatedDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedTime </span><span class="s2">= </span><span class="s1">updatedTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUserId </span><span class="s2">= </span><span class="s1">createdUserId</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedUserId </span><span class="s2">= </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">dueDate </span><span class="s2">= </span><span class="s1">dueDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenDate </span><span class="s2">= </span><span class="s1">reopenDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenTime </span><span class="s2">= </span><span class="s1">reopenTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">department </span><span class="s2">= </span><span class="s1">department</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">candidates </span><span class="s2">= </span><span class="s1">candidates</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">position </span><span class="s2">= </span><span class="s1">position</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">active </span><span class="s2">= </span><span class="s1">active</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">urgent </span><span class="s2">= </span><span class="s1">urgent</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopened </span><span class="s2">= </span><span class="s1">reopened</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Vacancy</span><span class="s2">(</span><span class="s0">long </span><span class="s1">id</span><span class="s2">, </span><span class="s1">String requirement</span><span class="s2">, </span><span class="s1">String responsibility</span><span class="s2">, </span><span class="s1">String description</span><span class="s2">, </span><span class="s1">String preference</span><span class="s2">,</span>
+			<span class="s1">String startWorkingDay</span><span class="s2">, </span><span class="s1">String endWorkingDay</span><span class="s2">, </span><span class="s1">String startWorkingHour</span><span class="s2">, </span><span class="s1">String endWorkingHour</span><span class="s2">, </span><span class="s1">String salary</span><span class="s2">,</span>
+			<span class="s0">int </span><span class="s1">count</span><span class="s2">, </span><span class="s1">String type</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">reopenStatus</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">reopened</span><span class="s2">, </span><span class="s1">LocalDate createdDate</span><span class="s2">,</span>
+			<span class="s1">LocalTime createdTime</span><span class="s2">, </span><span class="s1">LocalDate updatedDate</span><span class="s2">, </span><span class="s1">LocalTime updatedTime</span><span class="s2">, </span><span class="s0">int </span><span class="s1">createdUserId</span><span class="s2">, </span><span class="s0">int </span><span class="s1">updatedUserId</span><span class="s2">,</span>
+			<span class="s1">LocalDate dueDate</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">active</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">urgent</span><span class="s2">, </span><span class="s1">LocalDate reopenDate</span><span class="s2">, </span><span class="s1">LocalTime reopenTime</span><span class="s2">,</span>
+			<span class="s1">Department department</span><span class="s2">, </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Candidate</span><span class="s2">&gt; </span><span class="s1">candidates</span><span class="s2">, </span><span class="s1">Position position</span><span class="s2">) {</span>
+		<span class="s0">super</span><span class="s2">();</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">requirement </span><span class="s2">= </span><span class="s1">requirement</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">responsibility </span><span class="s2">= </span><span class="s1">responsibility</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">description </span><span class="s2">= </span><span class="s1">description</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">preference </span><span class="s2">= </span><span class="s1">preference</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">startWorkingDay </span><span class="s2">= </span><span class="s1">startWorkingDay</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">endWorkingDay </span><span class="s2">= </span><span class="s1">endWorkingDay</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">startWorkingHour </span><span class="s2">= </span><span class="s1">startWorkingHour</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">endWorkingHour </span><span class="s2">= </span><span class="s1">endWorkingHour</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">salary </span><span class="s2">= </span><span class="s1">salary</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">count </span><span class="s2">= </span><span class="s1">count</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">type </span><span class="s2">= </span><span class="s1">type</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenStatus </span><span class="s2">= </span><span class="s1">reopenStatus</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdDate </span><span class="s2">= </span><span class="s1">createdDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdTime </span><span class="s2">= </span><span class="s1">createdTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedDate </span><span class="s2">= </span><span class="s1">updatedDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedTime </span><span class="s2">= </span><span class="s1">updatedTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUserId </span><span class="s2">= </span><span class="s1">createdUserId</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedUserId </span><span class="s2">= </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">dueDate </span><span class="s2">= </span><span class="s1">dueDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenDate </span><span class="s2">= </span><span class="s1">reopenDate</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenTime </span><span class="s2">= </span><span class="s1">reopenTime</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">department </span><span class="s2">= </span><span class="s1">department</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">candidates </span><span class="s2">= </span><span class="s1">candidates</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">position </span><span class="s2">= </span><span class="s1">position</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">active </span><span class="s2">= </span><span class="s1">active</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">urgent </span><span class="s2">= </span><span class="s1">urgent</span><span class="s2">;</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopened </span><span class="s2">= </span><span class="s1">reopened</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public long </span><span class="s1">getId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setId</span><span class="s2">(</span><span class="s0">long </span><span class="s1">id</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getRequirement</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">requirement</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setRequirement</span><span class="s2">(</span><span class="s1">String requirement</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">requirement </span><span class="s2">= </span><span class="s1">requirement</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getResponsibility</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">responsibility</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setResponsibility</span><span class="s2">(</span><span class="s1">String responsibility</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">responsibility </span><span class="s2">= </span><span class="s1">responsibility</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getDescription</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">description</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setDescription</span><span class="s2">(</span><span class="s1">String description</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">description </span><span class="s2">= </span><span class="s1">description</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getPreference</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">preference</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setPreference</span><span class="s2">(</span><span class="s1">String preference</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">preference </span><span class="s2">= </span><span class="s1">preference</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getStartWorkingDay</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">startWorkingDay</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setStartWorkingDay</span><span class="s2">(</span><span class="s1">String startWorkingDay</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">startWorkingDay </span><span class="s2">= </span><span class="s1">startWorkingDay</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getEndWorkingDay</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">endWorkingDay</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setEndWorkingDay</span><span class="s2">(</span><span class="s1">String endWorkingDay</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">endWorkingDay </span><span class="s2">= </span><span class="s1">endWorkingDay</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getStartWorkingHour</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">startWorkingHour</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setStartWorkingHour</span><span class="s2">(</span><span class="s1">String startWorkingHour</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">startWorkingHour </span><span class="s2">= </span><span class="s1">startWorkingHour</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getEndWorkingHour</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">endWorkingHour</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setEndWorkingHour</span><span class="s2">(</span><span class="s1">String endWorkingHour</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">endWorkingHour </span><span class="s2">= </span><span class="s1">endWorkingHour</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getSalary</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">salary</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setSalary</span><span class="s2">(</span><span class="s1">String salary</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">salary </span><span class="s2">= </span><span class="s1">salary</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public int </span><span class="s1">getCount</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">count</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCount</span><span class="s2">(</span><span class="s0">int </span><span class="s1">count</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">count </span><span class="s2">= </span><span class="s1">count</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">String getType</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">type</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setType</span><span class="s2">(</span><span class="s1">String type</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">type </span><span class="s2">= </span><span class="s1">type</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isReopenStatus</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">reopenStatus</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setReopenStatus</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">reopenStatus</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenStatus </span><span class="s2">= </span><span class="s1">reopenStatus</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalDate getCreatedDate</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">createdDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCreatedDate</span><span class="s2">(</span><span class="s1">LocalDate createdDate</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdDate </span><span class="s2">= </span><span class="s1">createdDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalTime getCreatedTime</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">createdTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCreatedTime</span><span class="s2">(</span><span class="s1">LocalTime createdTime</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdTime </span><span class="s2">= </span><span class="s1">createdTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalDate getUpdatedDate</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">updatedDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setUpdatedDate</span><span class="s2">(</span><span class="s1">LocalDate updatedDate</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedDate </span><span class="s2">= </span><span class="s1">updatedDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalTime getUpdatedTime</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">updatedTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setUpdatedTime</span><span class="s2">(</span><span class="s1">LocalTime updatedTime</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedTime </span><span class="s2">= </span><span class="s1">updatedTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public int </span><span class="s1">getCreatedUserId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">createdUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCreatedUserId</span><span class="s2">(</span><span class="s0">int </span><span class="s1">createdUserId</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">createdUserId </span><span class="s2">= </span><span class="s1">createdUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public int </span><span class="s1">getUpdatedUserId</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setUpdatedUserId</span><span class="s2">(</span><span class="s0">int </span><span class="s1">updatedUserId</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">updatedUserId </span><span class="s2">= </span><span class="s1">updatedUserId</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalDate getDueDate</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">dueDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setDueDate</span><span class="s2">(</span><span class="s1">LocalDate dueDate</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">dueDate </span><span class="s2">= </span><span class="s1">dueDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalDate getReopenDate</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">reopenDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setReopenDate</span><span class="s2">(</span><span class="s1">LocalDate reopenDate</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenDate </span><span class="s2">= </span><span class="s1">reopenDate</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isActive</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">active</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setActive</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">active</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">active </span><span class="s2">= </span><span class="s1">active</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">LocalTime getReopenTime</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">reopenTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setReopenTime</span><span class="s2">(</span><span class="s1">LocalTime reopenTime</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopenTime </span><span class="s2">= </span><span class="s1">reopenTime</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Department getDepartment</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">department</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setDepartment</span><span class="s2">(</span><span class="s1">Department department</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">department </span><span class="s2">= </span><span class="s1">department</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Candidate</span><span class="s2">&gt; </span><span class="s1">getCandidates</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">candidates</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setCandidates</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Candidate</span><span class="s2">&gt; </span><span class="s1">candidates</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">candidates </span><span class="s2">= </span><span class="s1">candidates</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">Position getPosition</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">position</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setPosition</span><span class="s2">(</span><span class="s1">Position position</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">position </span><span class="s2">= </span><span class="s1">position</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Notification</span><span class="s2">&gt; </span><span class="s1">getNotification</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">notification</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setNotification</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Notification</span><span class="s2">&gt; </span><span class="s1">notification</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">notification </span><span class="s2">= </span><span class="s1">notification</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isUrgent</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">urgent</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setUrgent</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">urgent</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">urgent </span><span class="s2">= </span><span class="s1">urgent</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public boolean </span><span class="s1">isReopened</span><span class="s2">() {</span>
+		<span class="s0">return </span><span class="s1">reopened</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+	<span class="s0">public void </span><span class="s1">setReopened</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">reopened</span><span class="s2">) {</span>
+		<span class="s0">this</span><span class="s2">.</span><span class="s1">reopened </span><span class="s2">= </span><span class="s1">reopened</span><span class="s2">;</span>
+	<span class="s2">}</span>
+
+<span class="s2">}</span></pre>
+</body>
+</html>
